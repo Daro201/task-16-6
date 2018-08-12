@@ -1,12 +1,8 @@
 import React from 'react';
 import uuid from 'uuid';
 import style from './App.css';
-import { hot } from 'react-hot-loader';
-
-import Title from '../components/Title.js';
-import TodoForm from '../components/TodoForm.js';
-import TodoList from '../components/TodoList.js';
-
+import Title from '../components/Title';
+import TodoList from '../components/TodoList';
 
 class App extends React.Component {
   constructor(props){
@@ -23,7 +19,7 @@ class App extends React.Component {
         },
         {
           id: 3,
-          text: 'feed my cat'
+          text: 'feed my cat Alex'
         }
       ]
     };
@@ -38,7 +34,6 @@ class App extends React.Component {
         this.setState({data});
     }
 
-
   removeTodo(id){
     const remainder = this.state.data.filter(todo => todo.id !== id);
     this.setState({
@@ -49,12 +44,11 @@ class App extends React.Component {
   render(){
     return (
       <div className={style.TodoApp}>
-        <Title todoItemsArray={this.state.data.length}/>
-        <TodoList todoItemsArray={this.state.data} removeTodoItem={this.removeTodo}/>
-        <TodoForm addTodo={this.addTodo}/>
+        <Title arrayItems={this.state.data} numberOfTasks={this.state.data.length}/>
+        <TodoList itemList={this.state.data} removeTodoItem={this.removeTodo}/>
       </div>
     )
   }
 }
 
-export default hot(module)(App);
+export default App;

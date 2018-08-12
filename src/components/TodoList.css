@@ -1,6 +1,11 @@
 .TodoList {
-  padding: 10px 14px;
-  font-size: 25px;
-  list-style-type: none;
+	min-height: 50px;
+	width:  500px;
+	padding: 5px 7px;
+	font-size: 24px;
+	overflow: hidden;
+	list-style-type: none;
+	background-color: #4F517D;
+	overflow: hidden;
+	text-align: center;
 }
-

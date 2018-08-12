@@ -1,7 +1,7 @@
 const path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var OptimizeJsPlugin = require('optimize-js-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const OptimizeJsPlugin = require('optimize-js-plugin');
+
 
 const plugins = [new HtmlWebpackPlugin({
   template: 'src/index.html',
@@ -9,48 +9,49 @@ const plugins = [new HtmlWebpackPlugin({
   inject: 'body'
 })];
 
+
 module.exports = (env) => {
     const environment = env || 'production';
 
+    if (env === 'production') {
+        plugins.push(
+            new OptimizeJsPlugin({
+                sourceMap: false
+            })
+        )
+    }
 
-  if (environment === 'production') {
-    plugins.push(
-      new OptimizeJsPlugin({
-        sourceMap: false
-      })
-    )
-  }
-
-  return{
-      mode: environment,
-      entry: '.src/app.js',
-      output: {
-          path: path.resolve(__dirname, 'build'),
-          filename: 'app.' + environment + '.bundle.js'
-
-  },
-       
-  plugins,
-
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          loader: "babel-loader"
+    return {
+        mode: environment,
+        entry: './src/index.js',
+        output: {
+            path: path.resolve(__dirname, 'build'),
+            filename: 'app.' + environment + '.bundle.js'
         },
-        {
-          test: /\.css$/,
-          use: [
-            { loader: 'style-loader'},
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true
+
+        plugins,
+
+        module: {
+          rules: [
+              {
+                test: /\.js$/,
+                loader: "babel-loader"
+              },
+
+              {
+                test: /\.css$/,
+                use: [
+                    { loader: 'style-loader'},
+                    {
+                      loader: 'css-loader',
+                      options: {
+                          modules: true
+                      }
+                    }
+                ]
               }
-            }
           ]
         }
-      ]
     }
-  }
 };
+ 
