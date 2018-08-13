@@ -23,6 +23,7 @@ class App extends React.Component {
         }
       ]
     };
+    this.removeTodo = this.removeTodo.bind(this);
   }
 
   addTodo(val){
